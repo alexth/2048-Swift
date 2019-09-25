@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYt-hI-kfT">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYt-hI-kfT" customClass="MatrixView" customModule="_048_Swift" customModuleProvider="target">
                                 <rect key="frame" x="20" y="261" width="374" height="374"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -111,7 +111,7 @@
                         <outlet property="bestLabel" destination="i3f-Zs-YQI" id="lIy-hS-Hp0"/>
                         <outlet property="bestValueLabel" destination="SVv-ti-Has" id="NZ8-rO-gDh"/>
                         <outlet property="bestView" destination="ZrA-FM-lxw" id="bNE-ce-h9A"/>
-                        <outlet property="gameView" destination="jYt-hI-kfT" id="npP-RK-svg"/>
+                        <outlet property="matrixView" destination="jYt-hI-kfT" id="egE-5v-CAe"/>
                         <outlet property="scoreLabel" destination="Cvm-t5-Uuu" id="dMe-Ak-bgg"/>
                         <outlet property="scoreValueLabel" destination="O8X-ui-0fV" id="dM3-qC-twf"/>
                         <outlet property="scoreView" destination="HmF-BR-Pav" id="qjy-Lc-ztp"/>

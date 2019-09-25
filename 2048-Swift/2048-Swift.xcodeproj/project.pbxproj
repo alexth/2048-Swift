@@ -14,6 +14,7 @@
 		E5D40483233BF0A400571366 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5D40481233BF0A400571366 /* LaunchScreen.storyboard */; };
 		E5D4048E233BF0A400571366 /* _048_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4048D233BF0A400571366 /* _048_SwiftTests.swift */; };
 		E5D40499233BF0A400571366 /* _048_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D40498233BF0A400571366 /* _048_SwiftUITests.swift */; };
+		E5D404A7233BF93A00571366 /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D404A6233BF93A00571366 /* MatrixView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		E5D40494233BF0A400571366 /* 2048-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "2048-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D40498233BF0A400571366 /* _048_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _048_SwiftUITests.swift; sourceTree = "<group>"; };
 		E5D4049A233BF0A400571366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5D404A6233BF93A00571366 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				E5D40478233BF0A300571366 /* AppDelegate.swift */,
 				E5D4047A233BF0A300571366 /* ViewController.swift */,
+				E5D404A6233BF93A00571366 /* MatrixView.swift */,
 				E5D4047C233BF0A300571366 /* Main.storyboard */,
 				E5D4047F233BF0A400571366 /* Assets.xcassets */,
 				E5D40481233BF0A400571366 /* LaunchScreen.storyboard */,
@@ -258,6 +261,7 @@
 			files = (
 				E5D4047B233BF0A300571366 /* ViewController.swift in Sources */,
 				E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */,
+				E5D404A7233BF93A00571366 /* MatrixView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

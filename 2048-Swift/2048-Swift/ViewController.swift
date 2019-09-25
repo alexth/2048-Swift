@@ -8,8 +8,7 @@
 
 import UIKit
 
-final
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     @IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -17,13 +16,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var bestView: UIView!
     @IBOutlet weak var bestLabel: UILabel!
     @IBOutlet weak var bestValueLabel: UILabel!
-    @IBOutlet weak var gameView: UIView!
+    @IBOutlet weak var matrixView: MatrixView!
+//    @IBOutlet weak var gameView: UIView!
+//    private var matrixView: MatrixView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGestures()
+//        addMatrixViewToGameView()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        addMatrixViewToGameView()
+//        super.viewWillAppear(animated)
+//    }
     
     // MARK: - Actions
     
@@ -43,7 +50,7 @@ class ViewController: UIViewController {
         print("down")
     }
     
-    // MARK: - Utils
+    // MARK: - Setup
     
     private func setupGestures() {
         let leftRecognizer = UISwipeGestureRecognizer(target: self, action:
@@ -79,4 +86,11 @@ class ViewController: UIViewController {
             fatalError("ERROR! Should not happen")
         }
     }
+    
+//    private func addMatrixViewToGameView() {
+//        matrixView = MatrixView(frame: gameView.bounds)
+//        matrixView.backgroundColor = .green
+//        
+//        gameView.addSubview(matrixView)
+//    }
 }
