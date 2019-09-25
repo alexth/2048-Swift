@@ -8,13 +8,13 @@
 
 import UIKit
 
+final
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var gameView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
 }
-
