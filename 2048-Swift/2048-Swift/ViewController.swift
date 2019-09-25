@@ -11,10 +11,72 @@ import UIKit
 final
 class ViewController: UIViewController {
     
+    @IBOutlet weak var scoreView: UIView!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreValueLabel: UILabel!
+    @IBOutlet weak var bestView: UIView!
+    @IBOutlet weak var bestLabel: UILabel!
+    @IBOutlet weak var bestValueLabel: UILabel!
     @IBOutlet weak var gameView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setupGestures()
+    }
+    
+    // MARK: - Actions
+    
+    private func leftMove() {
+        print("left")
+    }
+    
+    private func rightMove() {
+        print("right")
+    }
+    
+    private func upMove() {
+        print("up")
+    }
+    
+    private func downMove() {
+        print("down")
+    }
+    
+    // MARK: - Utils
+    
+    private func setupGestures() {
+        let leftRecognizer = UISwipeGestureRecognizer(target: self, action:
+            #selector(swipeMade(_:)))
+        leftRecognizer.direction = .left
+        let rightRecognizer = UISwipeGestureRecognizer(target: self, action:
+            #selector(swipeMade(_:)))
+        rightRecognizer.direction = .right
+        let upRecognizer = UISwipeGestureRecognizer(target: self, action:
+            #selector(swipeMade(_:)))
+        upRecognizer.direction = .up
+        let downRecognizer = UISwipeGestureRecognizer(target: self, action:
+            #selector(swipeMade(_:)))
+        downRecognizer.direction = .down
+        
+        view.addGestureRecognizer(leftRecognizer)
+        view.addGestureRecognizer(rightRecognizer)
+        view.addGestureRecognizer(upRecognizer)
+        view.addGestureRecognizer(downRecognizer)
+    }
+    
+    @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        switch gestureRecognizer.direction {
+        case .left:
+            leftMove()
+        case .right:
+            rightMove()
+        case .up:
+            upMove()
+        case .down:
+            downMove()
+        default:
+            fatalError("ERROR! Should not happen")
+        }
     }
 }
