@@ -47,7 +47,7 @@ final class NodeView: UIView {
 final class MatrixView: UIView {
 
     let matrix: [[Index]]
-    lazy var matrixData = [[MatrixData]]()
+    var matrixData = [[MatrixData]]()
     
     required init?(coder aDecoder: NSCoder) {
         var verticalRow = [[Index]]()
@@ -71,16 +71,39 @@ final class MatrixView: UIView {
                     return
                 }
                 
-                let emptyMatrixData = try findRandomEmptyMatrixData()
+                var emptyMatrixData = try findRandomEmptyMatrixData()
                 let nodeView = NodeView(index: emptyMatrixData.index,
                                         frame: emptyMatrixData.frame,
                                         value: newNodeValue)
-                print(emptyMatrixData)
+                emptyMatrixData.nodeView = nodeView
+                addToMatrix(nodeData: emptyMatrixData)
+
                 addSubview(nodeView)
             } catch {
                 print(error)
             }
         }
+    }
+    
+    private func findRandomEmptyMatrixData() throws -> MatrixData {
+        let emptyFieldsArray = emptyFields()
+        
+        guard !emptyFieldsArray.isEmpty,
+            let matrixData = emptyFieldsArray.randomElement() else {
+                throw GameError.gameOver
+        }
+        
+        return matrixData
+    }
+    
+    private func addToMatrix(nodeData: MatrixData) {
+        guard let nodeView = nodeData.nodeView else {
+            return
+        }
+        
+        var existingNode = matrixData[nodeData.index.x][nodeData.index.y]
+        existingNode.nodeView = nodeView
+        matrixData[nodeData.index.x][nodeData.index.y] = existingNode
     }
     
     // MARK: - Setup
@@ -127,15 +150,10 @@ final class MatrixView: UIView {
         }
     }
     
-    private func findRandomEmptyMatrixData() throws -> MatrixData {
-        let allFieldsArray = matrixData.flatMap { $0 }
-        let emptyFieldsArray = allFieldsArray.filter { $0.nodeView == nil }
-        
-        guard !emptyFieldsArray.isEmpty,
-        let matrixData = emptyFieldsArray.randomElement() else {
-            throw GameError.gameOver
-        }
-        
-        return matrixData
+    // MARK: - Utils
+    
+    private func emptyFields() -> [MatrixData] {
+        // TODO:
+        return matrixData.flatMap { $0 }.filter { $0.nodeView == nil }
     }
 }
