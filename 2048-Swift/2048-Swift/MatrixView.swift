@@ -11,6 +11,10 @@ import UIKit
 public typealias Index = (x: Int, y: Int)
 internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
+public enum GameError: String, Error {
+    case gameOver = "Game Over"
+}
+
 final class NodeView: UIView {
     let index: Index
     let value: Int
@@ -29,7 +33,10 @@ final class NodeView: UIView {
     // MARK: - Setup
     
     private func setupUI() {
-        let label = UILabel(frame: frame)
+        backgroundColor = .white
+        
+        let label = UILabel(frame: bounds)
+        label.backgroundColor = .red
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24)
         label.text = "\(value)"
@@ -58,7 +65,22 @@ final class MatrixView: UIView {
     // MARK: - Actions
     
     func startGame() {
-        // TODO:
+        for _ in 0...1 {
+            do {
+                guard let newNodeValue = [2, 4].randomElement() else {
+                    return
+                }
+                
+                let emptyMatrixData = try findRandomEmptyMatrixData()
+                let nodeView = NodeView(index: emptyMatrixData.index,
+                                        frame: emptyMatrixData.frame,
+                                        value: newNodeValue)
+                print(emptyMatrixData)
+                addSubview(nodeView)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     // MARK: - Setup
@@ -102,10 +124,18 @@ final class MatrixView: UIView {
                 matrixesArray.append(matrixData)
             }
             matrixData.append(matrixesArray)
-        }        
+        }
     }
     
-    private func addNodeToAnEmptyField() throws {
-        // TODO:
+    private func findRandomEmptyMatrixData() throws -> MatrixData {
+        let allFieldsArray = matrixData.flatMap { $0 }
+        let emptyFieldsArray = allFieldsArray.filter { $0.nodeView == nil }
+        
+        guard !emptyFieldsArray.isEmpty,
+        let matrixData = emptyFieldsArray.randomElement() else {
+            throw GameError.gameOver
+        }
+        
+        return matrixData
     }
 }
