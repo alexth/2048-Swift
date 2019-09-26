@@ -38,22 +38,6 @@ final class ViewController: UIViewController {
     
     // MARK: - Actions
     
-    private func leftMove() {
-        print("left")
-    }
-    
-    private func rightMove() {
-        print("right")
-    }
-    
-    private func upMove() {
-        print("up")
-    }
-    
-    private func downMove() {
-        print("down")
-    }
-    
     // MARK: - Setup
     
     private func setupGestures() {
@@ -77,17 +61,6 @@ final class ViewController: UIViewController {
     }
     
     @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        switch gestureRecognizer.direction {
-        case .left:
-            leftMove()
-        case .right:
-            rightMove()
-        case .up:
-            upMove()
-        case .down:
-            downMove()
-        default:
-            fatalError("ERROR! Should not happen")
-        }
+        matrixView.didPerform(move: gestureRecognizer.direction)
     }
 }

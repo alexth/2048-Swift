@@ -85,6 +85,24 @@ final class MatrixView: UIView {
         }
     }
     
+    func didPerform(move: UISwipeGestureRecognizer.Direction) {
+        switch move {
+        case .left:
+            print(move)
+        case .right:
+            print(move)
+        case .up:
+            print(move)
+        case .down:
+            print(move)
+        default:
+            fatalError("ERROR! Should not happen")
+        }
+        
+        // TODO:
+        
+    }
+    
     private func findRandomEmptyMatrixData() throws -> MatrixData {
         let emptyFieldsArray = emptyFields()
         
