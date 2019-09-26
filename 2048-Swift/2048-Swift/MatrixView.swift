@@ -9,6 +9,7 @@
 import UIKit
 
 public typealias Index = (x: Int, y: Int)
+internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
 final class NodeView: UIView {
     let index: Index
@@ -39,7 +40,7 @@ final class NodeView: UIView {
 final class MatrixView: UIView {
 
     let matrix: [[Index]]
-//    let matrix1: [[(Index, CGRect)]]
+    lazy var matrixData = [[MatrixData]]()
     
     required init?(coder aDecoder: NSCoder) {
         var verticalRow = [[Index]]()
@@ -51,13 +52,6 @@ final class MatrixView: UIView {
             verticalRow.append(verticalArray)
         }
         self.matrix = verticalRow
-        
-//        for x in matrix {
-//            for y in x {
-//                print(y)
-//            }
-//        }
-        
         super.init(coder: aDecoder)
     }
     
@@ -87,6 +81,8 @@ final class MatrixView: UIView {
         let verticalSide = CGFloat(verticalInset * 6)
         
         for (rowIndex, row) in matrix.enumerated() {
+            var matrixesArray = [MatrixData]()
+            
             let xInset = (CGFloat(rowIndex) * CGFloat(horizontalSide)) + (verticalInset * CGFloat(rowIndex + 1))
             for node in row {
                 let yInset = (CGFloat(node.y) * CGFloat(verticalSide)) + (horizontalInset * CGFloat(node.y + 1))
@@ -98,8 +94,15 @@ final class MatrixView: UIView {
                 let nodeSuperview = UIView(frame: nodeSuperviewFrame)
                 nodeSuperview.backgroundColor = .lightGray
                 addSubview(nodeSuperview)
+                
+                let index: Index = (x: node.x, y: node.y)
+                let matrixData: MatrixData = (index: index,
+                                              frame: nodeSuperviewFrame,
+                                              nodeView: nil)
+                matrixesArray.append(matrixData)
             }
-        }
+            matrixData.append(matrixesArray)
+        }        
     }
     
     private func addNodeToAnEmptyField() throws {
