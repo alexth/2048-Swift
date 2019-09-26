@@ -17,20 +17,24 @@ final class ViewController: UIViewController {
     @IBOutlet weak var bestLabel: UILabel!
     @IBOutlet weak var bestValueLabel: UILabel!
     @IBOutlet weak var matrixView: MatrixView!
-//    @IBOutlet weak var gameView: UIView!
-//    private var matrixView: MatrixView!
+    @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGestures()
-//        addMatrixViewToGameView()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        addMatrixViewToGameView()
-//        super.viewWillAppear(animated)
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        print(matrixViewHeight.constant)
+        matrixView.setupMatrixView(height: matrixViewHeight.constant)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        matrixView.startGame()
+        super.viewDidAppear(animated)
+    }
     
     // MARK: - Actions
     
@@ -86,11 +90,4 @@ final class ViewController: UIViewController {
             fatalError("ERROR! Should not happen")
         }
     }
-    
-//    private func addMatrixViewToGameView() {
-//        matrixView = MatrixView(frame: gameView.bounds)
-//        matrixView.backgroundColor = .green
-//        
-//        gameView.addSubview(matrixView)
-//    }
 }

@@ -18,10 +18,21 @@ final class NodeView: UIView {
         self.index = index
         self.value = value
         super.init(frame: frame)
+        setupUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setup
+    
+    private func setupUI() {
+        let label = UILabel(frame: frame)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 24)
+        label.text = "\(value)"
+        addSubview(label)
     }
 }
 
@@ -48,21 +59,30 @@ final class MatrixView: UIView {
 //        }
         
         super.init(coder: aDecoder)
-        setupMatrixView()
+    }
+    
+    // MARK: - Actions
+    
+    func startGame() {
+        // TODO:
     }
     
     // MARK: - Setup
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
-    private func setupMatrixView() {
+    func setupMatrixView(height: CGFloat) {
+//    private func setupMatrixView() {
 //        let x1 = UIScreen.main.scale
 //        let x2 = UIScreen.main.nativeScale
 //        let x3 = UIScreen.main.bounds
 //        let x4 = UIScreen.main.nativeBounds
 //        let framex = frame
 //        let boundsx = bounds
-        let verticalInset = CGFloat(bounds.height / 29)// / UIScreen.main.nativeScale
-        let horizontalInset = CGFloat(bounds.width / 29)// / UIScreen.main.nativeScale
+        // TODO:
+//        let verticalInset = CGFloat(bounds.height / 29)
+//        let horizontalInset = CGFloat(bounds.width / 29)
+        let verticalInset = CGFloat(height / 29)
+        let horizontalInset = CGFloat(height / 29)
         let horizontalSide = CGFloat(verticalInset * 6)
         let verticalSide = CGFloat(verticalInset * 6)
         
@@ -82,11 +102,7 @@ final class MatrixView: UIView {
         }
     }
     
-    private func startGame() {
-        // TODO:
-    }
-    
-    private func addNode() throws {
+    private func addNodeToAnEmptyField() throws {
         // TODO:
     }
 }

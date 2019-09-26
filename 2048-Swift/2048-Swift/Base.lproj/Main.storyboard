@@ -23,6 +23,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="jYt-hI-kfT" secondAttribute="height" multiplier="1:1" id="66s-av-RPw"/>
+                                    <constraint firstAttribute="height" constant="280" id="akv-JW-WZZ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HmF-BR-Pav">
@@ -98,11 +99,11 @@
                             <constraint firstItem="ZrA-FM-lxw" firstAttribute="width" secondItem="HmF-BR-Pav" secondAttribute="width" id="6aA-Ot-7Os"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZrA-FM-lxw" secondAttribute="trailing" constant="20" id="CAd-QU-NmK"/>
                             <constraint firstItem="jYt-hI-kfT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="30" id="LfF-vc-NaG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jYt-hI-kfT" secondAttribute="trailing" constant="20" id="NSI-im-rjQ"/>
                             <constraint firstItem="ZrA-FM-lxw" firstAttribute="leading" secondItem="HmF-BR-Pav" secondAttribute="trailing" constant="14" id="TEj-aT-hyK"/>
                             <constraint firstItem="HmF-BR-Pav" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="TaK-g1-dIT"/>
                             <constraint firstItem="HmF-BR-Pav" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="X5B-92-Pvm"/>
-                            <constraint firstItem="jYt-hI-kfT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="l5u-s3-LfY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jYt-hI-kfT" secondAttribute="trailing" constant="20" id="nko-2E-X8f"/>
+                            <constraint firstItem="jYt-hI-kfT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cdP-IH-3ct"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -111,6 +112,7 @@
                         <outlet property="bestValueLabel" destination="SVv-ti-Has" id="NZ8-rO-gDh"/>
                         <outlet property="bestView" destination="ZrA-FM-lxw" id="bNE-ce-h9A"/>
                         <outlet property="matrixView" destination="jYt-hI-kfT" id="egE-5v-CAe"/>
+                        <outlet property="matrixViewHeight" destination="akv-JW-WZZ" id="f0F-bF-ouR"/>
                         <outlet property="scoreLabel" destination="Cvm-t5-Uuu" id="dMe-Ak-bgg"/>
                         <outlet property="scoreValueLabel" destination="O8X-ui-0fV" id="dM3-qC-twf"/>
                         <outlet property="scoreView" destination="HmF-BR-Pav" id="qjy-Lc-ztp"/>
