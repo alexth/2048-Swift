@@ -13,6 +13,7 @@ internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView
 
 protocol MatrixViewDelegate: class {
     func didAddToScore(value: UInt)
+    func didThrow(error: Error)
 }
 
 final class MatrixView: UIView {
@@ -53,7 +54,7 @@ final class MatrixView: UIView {
 
                 addSubview(nodeView)
             } catch {
-                print(error)
+                delegate?.didThrow(error: error)
             }
         }
     }

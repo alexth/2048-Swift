@@ -76,4 +76,9 @@ extension ViewController: MatrixViewDelegate {
         score += value
         scoreValueLabel.text = "\(score)"
     }
+    
+    func didThrow(error: Error) {
+        // TODO:
+        print(error)
+    }
 }
