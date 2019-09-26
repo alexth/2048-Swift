@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E586F5B7233D448700C1B323 /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5B6233D448700C1B323 /* NodeView.swift */; };
+		E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */; };
 		E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D40478233BF0A300571366 /* AppDelegate.swift */; };
 		E5D4047B233BF0A300571366 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4047A233BF0A300571366 /* ViewController.swift */; };
 		E5D4047E233BF0A300571366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5D4047C233BF0A300571366 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		E586F5B6233D448700C1B323 /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
+		E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorners.swift"; sourceTree = "<group>"; };
 		E5D40475233BF0A300571366 /* 2048-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2048-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D40478233BF0A300571366 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5D4047A233BF0A300571366 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E586F5B8233D4B1A00C1B323 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5D404A6233BF93A00571366 /* MatrixView.swift */,
+				E586F5B6233D448700C1B323 /* NodeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E586F5B9233D4B3A00C1B323 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5D4047A233BF0A300571366 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E586F5BA233D4B4D00C1B323 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E5D4046C233BF0A200571366 = {
 			isa = PBXGroup;
 			children = (
@@ -102,9 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				E5D40478233BF0A300571366 /* AppDelegate.swift */,
-				E5D4047A233BF0A300571366 /* ViewController.swift */,
-				E5D404A6233BF93A00571366 /* MatrixView.swift */,
-				E586F5B6233D448700C1B323 /* NodeView.swift */,
+				E586F5BA233D4B4D00C1B323 /* Extensions */,
+				E586F5B9233D4B3A00C1B323 /* ViewControllers */,
+				E586F5B8233D4B1A00C1B323 /* Views */,
 				E5D4047C233BF0A300571366 /* Main.storyboard */,
 				E5D4047F233BF0A400571366 /* Assets.xcassets */,
 				E5D40481233BF0A400571366 /* LaunchScreen.storyboard */,
@@ -265,6 +292,7 @@
 				E5D4047B233BF0A300571366 /* ViewController.swift in Sources */,
 				E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */,
 				E586F5B7233D448700C1B323 /* NodeView.swift in Sources */,
+				E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */,
 				E5D404A7233BF93A00571366 /* MatrixView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

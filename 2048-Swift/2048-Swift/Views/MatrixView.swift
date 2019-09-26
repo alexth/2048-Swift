@@ -34,6 +34,8 @@ final class MatrixView: UIView {
         }
         self.matrix = verticalRow
         super.init(coder: aDecoder)
+        layer.cornerRadius = 5
+//        layer.masksToBounds = true
     }
     
     // MARK: - Actions
