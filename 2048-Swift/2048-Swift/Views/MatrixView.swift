@@ -34,8 +34,7 @@ final class MatrixView: UIView {
         }
         self.matrix = verticalRow
         super.init(coder: aDecoder)
-        layer.cornerRadius = 5
-//        layer.masksToBounds = true
+        roundCorners()
     }
     
     // MARK: - Actions
@@ -146,6 +145,7 @@ final class MatrixView: UIView {
                                                 height: verticalSide)
                 let nodeSuperview = UIView(frame: nodeSuperviewFrame)
                 nodeSuperview.backgroundColor = .lightGray
+                nodeSuperview.roundCorners()
                 addSubview(nodeSuperview)
                 
                 let index: Index = (x: node.x, y: node.y)

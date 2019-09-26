@@ -26,7 +26,8 @@ final class NodeView: UIView {
     // MARK: - Setup
     
     private func setupUI() {
-        backgroundColor = .white
+        roundCorners()
+        backgroundColor = .white // TODO: depend on value
         
         let label = UILabel(frame: bounds)
         label.textAlignment = .center

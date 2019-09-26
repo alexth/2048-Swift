@@ -25,11 +25,14 @@ final class ViewController: UIViewController {
     
     private var score: UInt = 0
 
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         matrixView.delegate = self
         setupGestures()
+        roundViewsCorners()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +71,13 @@ final class ViewController: UIViewController {
     
     @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
         matrixView.didPerform(move: gestureRecognizer.direction)
+    }
+    
+    // MARK: - Utils
+    
+    private func roundViewsCorners() {
+        scoreView.roundCorners()
+        bestView.roundCorners()
     }
 }
 
