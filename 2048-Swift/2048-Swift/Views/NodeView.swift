@@ -31,9 +31,9 @@ final class NodeView: UIView {
         
         let label = UILabel(frame: bounds)
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24)
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 30)
         label.text = "\(value)"
         addSubview(label)
     }
 }
-
