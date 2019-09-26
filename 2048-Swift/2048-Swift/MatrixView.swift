@@ -11,42 +11,9 @@ import UIKit
 public typealias Index = (x: Int, y: Int)
 internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
-public enum GameError: String, Error {
-    case gameOver = "Game Over"
-}
-
-final class NodeView: UIView {
-    let index: Index
-    let value: Int
-    
-    init(index: Index, frame: CGRect, value: Int) {
-        self.index = index
-        self.value = value
-        super.init(frame: frame)
-        setupUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Setup
-    
-    private func setupUI() {
-        backgroundColor = .white
-        
-        let label = UILabel(frame: bounds)
-        label.backgroundColor = .red
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24)
-        label.text = "\(value)"
-        addSubview(label)
-    }
-}
-
 final class MatrixView: UIView {
 
-    let matrix: [[Index]]
+    let matrix: [[Index]] // TODO: remove if possible
     var matrixData = [[MatrixData]]()
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,24 +52,6 @@ final class MatrixView: UIView {
         }
     }
     
-    func didPerform(move: UISwipeGestureRecognizer.Direction) {
-        switch move {
-        case .left:
-            print(move)
-        case .right:
-            print(move)
-        case .up:
-            print(move)
-        case .down:
-            print(move)
-        default:
-            fatalError("ERROR! Should not happen")
-        }
-        
-        // TODO:
-        
-    }
-    
     private func findRandomEmptyMatrixData() throws -> MatrixData {
         let emptyFieldsArray = emptyFields()
         
@@ -122,6 +71,39 @@ final class MatrixView: UIView {
         var existingNode = matrixData[nodeData.index.x][nodeData.index.y]
         existingNode.nodeView = nodeView
         matrixData[nodeData.index.x][nodeData.index.y] = existingNode
+    }
+    
+    // MARK: - Moves
+    
+    func didPerform(move: UISwipeGestureRecognizer.Direction) {
+        switch move {
+        case .left:
+            leftMove()
+        case .right:
+            rightMove()
+        case .up:
+            upMove()
+        case .down:
+            downMove()
+        default:
+            fatalError("ERROR! Should not happen")
+        }
+    }
+    
+    private func leftMove() {
+        
+    }
+    
+    private func rightMove() {
+        // TODO:
+    }
+    
+    private func upMove() {
+        // TODO:
+    }
+    
+    private func downMove() {
+        // TODO:
     }
     
     // MARK: - Setup
@@ -171,7 +153,6 @@ final class MatrixView: UIView {
     // MARK: - Utils
     
     private func emptyFields() -> [MatrixData] {
-        // TODO:
         return matrixData.flatMap { $0 }.filter { $0.nodeView == nil }
     }
 }

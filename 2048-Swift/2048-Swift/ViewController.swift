@@ -8,6 +8,10 @@
 
 import UIKit
 
+public enum GameError: String, Error {
+    case gameOver = "Game Over"
+}
+
 final class ViewController: UIViewController {
     
     @IBOutlet weak var scoreView: UIView!
