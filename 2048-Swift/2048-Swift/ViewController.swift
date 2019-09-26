@@ -22,15 +22,17 @@ final class ViewController: UIViewController {
     @IBOutlet weak var bestValueLabel: UILabel!
     @IBOutlet weak var matrixView: MatrixView!
     @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
+    
+    private var score: UInt = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        matrixView.delegate = self
         setupGestures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(matrixViewHeight.constant)
         matrixView.setupMatrixView(height: matrixViewHeight.constant)
         super.viewWillAppear(animated)
     }
@@ -66,5 +68,12 @@ final class ViewController: UIViewController {
     
     @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
         matrixView.didPerform(move: gestureRecognizer.direction)
+    }
+}
+
+extension ViewController: MatrixViewDelegate {
+    func didAddToScore(value: UInt) {
+        score += value
+        scoreValueLabel.text = "\(score)"
     }
 }

@@ -11,10 +11,16 @@ import UIKit
 public typealias Index = (x: Int, y: Int)
 internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
+protocol MatrixViewDelegate: class {
+    func didAddToScore(value: UInt)
+}
+
 final class MatrixView: UIView {
 
     let matrix: [[Index]] // TODO: remove if possible
     var matrixData = [[MatrixData]]()
+    
+    weak var delegate: MatrixViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         var verticalRow = [[Index]]()
@@ -41,7 +47,7 @@ final class MatrixView: UIView {
                 var emptyMatrixData = try findRandomEmptyMatrixData()
                 let nodeView = NodeView(index: emptyMatrixData.index,
                                         frame: emptyMatrixData.frame,
-                                        value: newNodeValue)
+                                        value: UInt(newNodeValue))
                 emptyMatrixData.nodeView = nodeView
                 addToMatrix(nodeData: emptyMatrixData)
 
@@ -91,7 +97,7 @@ final class MatrixView: UIView {
     }
     
     private func leftMove() {
-        
+//        let topRow =
     }
     
     private func rightMove() {
@@ -135,7 +141,6 @@ final class MatrixView: UIView {
                                                 y: yInset,
                                                 width: horizontalSide,
                                                 height: verticalSide)
-//                print(nodeSuperviewFrame)
                 let nodeSuperview = UIView(frame: nodeSuperviewFrame)
                 nodeSuperview.backgroundColor = .lightGray
                 addSubview(nodeSuperview)
