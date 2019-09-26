@@ -41,29 +41,43 @@ final class MatrixView: UIView {
         }
         self.matrix = verticalRow
         
+//        for x in matrix {
+//            for y in x {
+//                print(y)
+//            }
+//        }
+        
         super.init(coder: aDecoder)
         setupMatrixView()
     }
     
     // MARK: - Setup
     
+    // TODO: make 4x4, 6x6, 8x8 etc by adjusting
     private func setupMatrixView() {
-        let inset = CGFloat(frame.height / 30)
-        let size = CGFloat(inset * 6)
+//        let x1 = UIScreen.main.scale
+//        let x2 = UIScreen.main.nativeScale
+//        let x3 = UIScreen.main.bounds
+//        let x4 = UIScreen.main.nativeBounds
+//        let framex = frame
+//        let boundsx = bounds
+        let verticalInset = CGFloat(bounds.height / 29)// / UIScreen.main.nativeScale
+        let horizontalInset = CGFloat(bounds.width / 29)// / UIScreen.main.nativeScale
+        let horizontalSide = CGFloat(verticalInset * 6)
+        let verticalSide = CGFloat(verticalInset * 6)
         
-        for row in matrix {
-            var xInset = CGFloat(1)
+        for (rowIndex, row) in matrix.enumerated() {
+            let xInset = (CGFloat(rowIndex) * CGFloat(horizontalSide)) + (verticalInset * CGFloat(rowIndex + 1))
             for node in row {
-//                print(node)
-                xInset += 1
-                let nodeSuperviewFrame = CGRect(x: inset * xInset,
-                                                y: inset,
-                                                width: size,
-                                                height: size)
+                let yInset = (CGFloat(node.y) * CGFloat(verticalSide)) + (horizontalInset * CGFloat(node.y + 1))
+                let nodeSuperviewFrame = CGRect(x: xInset,
+                                                y: yInset,
+                                                width: horizontalSide,
+                                                height: verticalSide)
+//                print(nodeSuperviewFrame)
                 let nodeSuperview = UIView(frame: nodeSuperviewFrame)
-                nodeSuperview.backgroundColor = .white
+                nodeSuperview.backgroundColor = .lightGray
                 addSubview(nodeSuperview)
-                print(nodeSuperview.frame)
             }
         }
     }
