@@ -19,7 +19,7 @@ protocol MatrixViewDelegate: class {
 final class MatrixView: UIView {
 
     let matrix: [[Index]] // TODO: remove if possible
-    var matrixData = [[MatrixData]]()
+    var matrixDatasArrays = [[MatrixData]]()
     
     weak var delegate: MatrixViewDelegate?
     
@@ -76,9 +76,9 @@ final class MatrixView: UIView {
             return
         }
         
-        var existingNode = matrixData[nodeData.index.x][nodeData.index.y]
+        var existingNode = matrixDatasArrays[nodeData.index.x][nodeData.index.y]
         existingNode.nodeView = nodeView
-        matrixData[nodeData.index.x][nodeData.index.y] = existingNode
+        matrixDatasArrays[nodeData.index.x][nodeData.index.y] = existingNode
     }
     
     // MARK: - Moves
@@ -99,7 +99,13 @@ final class MatrixView: UIView {
     }
     
     private func leftMove() {
-//        let topRow =
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(0,0), (1, 0), (2, 0), (3, 0)]
+        let secondIndexesRow: [Index] = [(0, 1), (1, 1), (2, 1), (3, 1)]
+        let thirdIndexesRow: [Index] = [(0, 2), (1, 2), (2, 2), (3, 2)]
+        let fourthIndexesRow: [Index] = [(0, 3), (1, 3), (2, 3), (3, 3)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func rightMove() {
@@ -112,6 +118,38 @@ final class MatrixView: UIView {
     
     private func downMove() {
         // TODO:
+    }
+    
+    private func handleMove(rowsIndexesArray: [[Index]]) {
+        var rowsArray = [[MatrixData]]()
+        for indexesArray in rowsIndexesArray {
+            var rowArray = [MatrixData]()
+            for index in indexesArray {
+                rowArray.append(matrixDatasArrays[index.x][index.y])
+            }
+            rowsArray.append(rowArray)
+        }
+        
+        var newMatrixDatasArrays = [[MatrixData]]()
+        rowsArray.forEach {
+            let nodeViews = $0.filter { $0.nodeView != nil }
+            if !nodeViews.isEmpty {
+                let intsArray = createArrayOfIntsForSorting(array: $0)
+                let sortedIntsArray = sort(array: intsArray)
+                let sortedMatrixDatasArray = createMatrixDatasArray(initialArray: $0, intsArray: sortedIntsArray)
+                newMatrixDatasArrays.append(sortedMatrixDatasArray)
+            }
+        }
+        matrixDatasArrays = newMatrixDatasArrays
+
+        redrawScreen()
+    }
+    
+    private func redrawScreen() {
+        removeAllNodeSubviews()
+        drawMatrix()
+        
+        // TODO: add new nodeView
     }
     
     private func createArrayOfIntsForSorting(array: [MatrixData]) -> [UInt] {
@@ -131,7 +169,7 @@ final class MatrixView: UIView {
     private func createMatrixDatasArray(initialArray: [MatrixData], intsArray: [UInt]) -> [MatrixData] {
         var matrixDatasArray = [MatrixData]()
         for (index, matrixData) in initialArray.enumerated() {
-            if index <= intsArray.count {
+            if index < intsArray.count {
                 let nodeView = NodeView(index: matrixData.index,
                                         frame: matrixData.frame,
                                         value: intsArray[index])
@@ -169,7 +207,9 @@ final class MatrixView: UIView {
                         }
                     }
                 } else if currentIndex == lastIndex {
-                    sortedMatrixArray.append(currentItem)
+                    if currentItem != 0 {
+                        sortedMatrixArray.append(currentItem)
+                    }
                 }
             } else {
                 makeBreakAfterMerge = false
@@ -220,13 +260,31 @@ final class MatrixView: UIView {
                                               nodeView: nil)
                 matrixesArray.append(matrixData)
             }
-            matrixData.append(matrixesArray)
+            matrixDatasArrays.append(matrixesArray)
+        }
+    }
+    
+    private func drawMatrix() {
+        for matrixDatasArray in matrixDatasArrays {
+            for matrixData in matrixDatasArray {
+                if let nodeView = matrixData.nodeView {
+                    addSubview(nodeView)
+                }
+            }
         }
     }
     
     // MARK: - Utils
     
     private func emptyFields() -> [MatrixData] {
-        return matrixData.flatMap { $0 }.filter { $0.nodeView == nil }
+        return matrixDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
+    }
+    
+    private func removeAllNodeSubviews() {
+        subviews.forEach {
+            if let nodeView = $0 as? NodeView {
+                nodeView.removeFromSuperview()
+            }
+        }
     }
 }
