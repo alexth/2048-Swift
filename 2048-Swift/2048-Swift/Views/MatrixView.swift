@@ -12,7 +12,7 @@ public typealias Index = (x: Int, y: Int)
 internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
 protocol MatrixViewDelegate: class {
-    func didAddToScore(value: UInt)
+    func addToScore(value: UInt)
     func didThrow(error: Error)
 }
 
@@ -204,12 +204,12 @@ final class MatrixView: UIView {
                             let newItem = currentItem + nextItem
                             sortedMatrixArray.append(newItem)
                             makeBreakAfterMerge = true
+                            
+                            delegate?.addToScore(value: newItem)
                         }
                     }
-                } else if currentIndex == lastIndex {
-                    if currentItem != 0 {
-                        sortedMatrixArray.append(currentItem)
-                    }
+                } else if currentIndex == lastIndex, currentItem != 0 {
+                    sortedMatrixArray.append(currentItem)
                 }
             } else {
                 makeBreakAfterMerge = false

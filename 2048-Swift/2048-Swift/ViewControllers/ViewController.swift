@@ -82,7 +82,7 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: MatrixViewDelegate {
-    func didAddToScore(value: UInt) {
+    func addToScore(value: UInt) {
         score += value
         scoreValueLabel.text = "\(score)"
     }
