@@ -114,6 +114,72 @@ final class MatrixView: UIView {
         // TODO:
     }
     
+    private func createArrayOfIntsForSorting(array: [MatrixData]) -> [UInt] {
+        var intsArray = [UInt]()
+        for matrixData in array {
+            guard let nodeView = matrixData.nodeView else {
+                intsArray.append(0)
+                continue
+            }
+            
+            intsArray.append(nodeView.value)
+        }
+        
+        return intsArray
+    }
+    
+    private func createMatrixDatasArray(initialArray: [MatrixData], intsArray: [UInt]) -> [MatrixData] {
+        var matrixDatasArray = [MatrixData]()
+        for (index, matrixData) in initialArray.enumerated() {
+            if index <= intsArray.count {
+                let nodeView = NodeView(index: matrixData.index,
+                                        frame: matrixData.frame,
+                                        value: intsArray[index])
+                let newMatrixData: MatrixData = (index: matrixData.index,
+                                                 frame: matrixData.frame,
+                                                 nodeView: nodeView)
+                matrixDatasArray.append(newMatrixData)
+            } else {
+                let newMatrixData: MatrixData = (index: matrixData.index,
+                                                 frame: matrixData.frame,
+                                                 nodeView: nil)
+                matrixDatasArray.append(newMatrixData)
+            }
+        }
+        
+        return matrixDatasArray
+    }
+    
+    private func sort(array: [UInt]) -> [UInt] {
+        var sortedMatrixArray = [UInt]()
+        var makeBreakAfterMerge = false
+        for (currentIndex, currentItem) in array.enumerated() {
+            if makeBreakAfterMerge == false {
+                let lastIndex = array.count - 1
+                if currentIndex < lastIndex {
+                    let nextIndex = currentIndex + 1
+                    let nextItem = array[nextIndex]
+                    if currentItem != 0 {
+                        if currentItem != nextItem {
+                            sortedMatrixArray.append(currentItem)
+                        } else if currentItem == nextItem {
+                            let newItem = currentItem + nextItem
+                            sortedMatrixArray.append(newItem)
+                            makeBreakAfterMerge = true
+                        }
+                    }
+                } else if currentIndex == lastIndex {
+                    sortedMatrixArray.append(currentItem)
+                }
+            } else {
+                makeBreakAfterMerge = false
+                continue
+            }
+        }
+        
+        return sortedMatrixArray
+    }
+    
     // MARK: - Setup
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
