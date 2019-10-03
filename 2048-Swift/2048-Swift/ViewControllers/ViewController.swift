@@ -20,7 +20,7 @@ final class ViewController: UIViewController {
     @IBOutlet weak var bestView: UIView!
     @IBOutlet weak var bestLabel: UILabel!
     @IBOutlet weak var bestValueLabel: UILabel!
-    @IBOutlet weak var matrixView: MatrixView!
+    @IBOutlet weak var matrixView: GridView!
     @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
     
     private var score: UInt = 0

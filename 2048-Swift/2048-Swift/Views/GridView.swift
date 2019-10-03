@@ -1,5 +1,5 @@
 //
-//  MatrixView.swift
+//  GridView.swift
 //  2048-Swift
 //
 //  Created by Alex Golub on 9/25/19.
@@ -16,7 +16,7 @@ protocol MatrixViewDelegate: class {
     func didThrow(error: Error)
 }
 
-final class MatrixView: UIView {
+final class GridView: UIView {
 
     let matrix: [[Index]] // TODO: remove if possible
     var matrixDatasArrays = [[MatrixData]]()
@@ -139,7 +139,7 @@ final class MatrixView: UIView {
         var newMatrixDatasArrays = [[MatrixData]]()
         rowsArray.forEach {
             let rowNodeViews = $0.filter { $0.nodeView != nil }
-            if !nodeViews.isEmpty {
+            if !rowNodeViews.isEmpty {
                 let intsArray = createArrayOfIntsForSorting(array: $0)
                 let sortedIntsArray = sort(array: intsArray)
                 let sortedMatrixDatasArray = createMatrixDatasArray(initialArray: $0, intsArray: sortedIntsArray)
