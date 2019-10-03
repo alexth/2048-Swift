@@ -10,7 +10,7 @@ import UIKit
 
 final class NodeView: UIView {
     let index: Index
-    let value: UInt
+    var value: UInt
     
     init(index: Index, frame: CGRect, value: UInt) {
         self.index = index

@@ -100,7 +100,7 @@ final class MatrixView: UIView {
     
     private func leftMove() {
         // FIXME: - hardcoded for four rows
-        let firstIndexesRow: [Index] = [(0,0), (1, 0), (2, 0), (3, 0)]
+        let firstIndexesRow: [Index] = [(0, 0), (1, 0), (2, 0), (3, 0)]
         let secondIndexesRow: [Index] = [(0, 1), (1, 1), (2, 1), (3, 1)]
         let thirdIndexesRow: [Index] = [(0, 2), (1, 2), (2, 2), (3, 2)]
         let fourthIndexesRow: [Index] = [(0, 3), (1, 3), (2, 3), (3, 3)]
@@ -109,7 +109,13 @@ final class MatrixView: UIView {
     }
     
     private func rightMove() {
-        // TODO:
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(3, 0), (2, 0), (1, 0), (0, 0)]
+        let secondIndexesRow: [Index] = [(3, 1), (2, 1), (1, 1), (0, 1)]
+        let thirdIndexesRow: [Index] = [(3, 2), (2, 2), (1, 2), (0, 2)]
+        let fourthIndexesRow: [Index] = [(3, 3), (2, 3), (1, 3), (0, 3)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func upMove() {
@@ -132,12 +138,14 @@ final class MatrixView: UIView {
         
         var newMatrixDatasArrays = [[MatrixData]]()
         rowsArray.forEach {
-            let nodeViews = $0.filter { $0.nodeView != nil }
+            let rowNodeViews = $0.filter { $0.nodeView != nil }
             if !nodeViews.isEmpty {
                 let intsArray = createArrayOfIntsForSorting(array: $0)
                 let sortedIntsArray = sort(array: intsArray)
                 let sortedMatrixDatasArray = createMatrixDatasArray(initialArray: $0, intsArray: sortedIntsArray)
                 newMatrixDatasArrays.append(sortedMatrixDatasArray)
+            } else {
+                newMatrixDatasArrays.append($0)
             }
         }
         matrixDatasArrays = newMatrixDatasArrays
@@ -169,6 +177,22 @@ final class MatrixView: UIView {
     private func createMatrixDatasArray(initialArray: [MatrixData], intsArray: [UInt]) -> [MatrixData] {
         var matrixDatasArray = [MatrixData]()
         for (index, matrixData) in initialArray.enumerated() {
+//            ;kajsdf;kjasdfjkdfj
+//            if index < intsArray.count {
+//                let nodeView = NodeView(index: matrixData.index,
+//                                        frame: matrixData.frame,
+//                                        value: intsArray[index])
+//                let newMatrixData: MatrixData = (index: matrixData.index,
+//                                                 frame: matrixData.frame,
+//                                                 nodeView: nodeView)
+//                matrixDatasArray.append(newMatrixData)
+//            } else {
+//                let newMatrixData: MatrixData = (index: matrixData.index,
+//                                                 frame: matrixData.frame,
+//                                                 nodeView: nil)
+//                matrixDatasArray.append(newMatrixData)
+//            }
+            
             if index < intsArray.count {
                 let nodeView = NodeView(index: matrixData.index,
                                         frame: matrixData.frame,
