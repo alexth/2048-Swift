@@ -11,7 +11,7 @@ import UIKit
 public typealias Index = (x: Int, y: Int)
 internal typealias MatrixData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
-protocol MatrixViewDelegate: class {
+protocol GridViewDelegate: class {
     func addToScore(value: UInt)
     func didThrow(error: Error)
 }
@@ -21,7 +21,7 @@ final class GridView: UIView {
     let matrix: [[Index]] // TODO: remove if possible
     var matrixDatasArrays = [[MatrixData]]()
     
-    weak var delegate: MatrixViewDelegate?
+    weak var delegate: GridViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         var verticalRow = [[Index]]()

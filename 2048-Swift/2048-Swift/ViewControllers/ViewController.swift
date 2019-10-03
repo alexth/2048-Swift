@@ -81,7 +81,7 @@ final class ViewController: UIViewController {
     }
 }
 
-extension ViewController: MatrixViewDelegate {
+extension ViewController: GridViewDelegate {
     func addToScore(value: UInt) {
         score += value
         scoreValueLabel.text = "\(score)"
