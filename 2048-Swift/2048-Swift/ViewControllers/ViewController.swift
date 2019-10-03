@@ -36,7 +36,7 @@ final class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        matrixView.setupMatrixView(height: matrixViewHeight.constant)
+        matrixView.setupGridView(height: matrixViewHeight.constant)
         super.viewWillAppear(animated)
     }
     

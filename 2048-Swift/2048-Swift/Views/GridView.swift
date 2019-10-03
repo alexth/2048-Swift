@@ -18,8 +18,8 @@ protocol GridViewDelegate: class {
 
 final class GridView: UIView {
 
-    let matrix: [[Index]] // TODO: remove if possible
-    var matrixDatasArrays = [[GridData]]()
+    let initialMatrix: [[Index]] // TODO: remove if possible
+    var gridDatasArrays = [[GridData]]()
     
     weak var delegate: GridViewDelegate?
     
@@ -32,7 +32,7 @@ final class GridView: UIView {
             }
             verticalRow.append(verticalArray)
         }
-        self.matrix = verticalRow
+        self.initialMatrix = verticalRow
         super.init(coder: aDecoder)
         roundCorners()
     }
@@ -46,12 +46,12 @@ final class GridView: UIView {
                     return
                 }
                 
-                var emptyMatrixData = try findRandomEmptyMatrixData()
-                let nodeView = NodeView(index: emptyMatrixData.index,
-                                        frame: emptyMatrixData.frame,
+                var emptyGridData = try findRandomEmptyGridData()
+                let nodeView = NodeView(index: emptyGridData.index,
+                                        frame: emptyGridData.frame,
                                         value: UInt(newNodeValue))
-                emptyMatrixData.nodeView = nodeView
-                addToMatrix(nodeData: emptyMatrixData)
+                emptyGridData.nodeView = nodeView
+                addToGrid(gridData: emptyGridData)
 
                 addSubview(nodeView)
             } catch {
@@ -60,25 +60,25 @@ final class GridView: UIView {
         }
     }
     
-    private func findRandomEmptyMatrixData() throws -> GridData {
+    private func findRandomEmptyGridData() throws -> GridData {
         let emptyFieldsArray = emptyFields()
         
         guard !emptyFieldsArray.isEmpty,
-            let matrixData = emptyFieldsArray.randomElement() else {
+            let gridData = emptyFieldsArray.randomElement() else {
                 throw GameError.gameOver
         }
         
-        return matrixData
+        return gridData
     }
     
-    private func addToMatrix(nodeData: GridData) {
-        guard let nodeView = nodeData.nodeView else {
+    private func addToGrid(gridData: GridData) {
+        guard let nodeView = gridData.nodeView else {
             return
         }
         
-        var existingNode = matrixDatasArrays[nodeData.index.x][nodeData.index.y]
+        var existingNode = gridDatasArrays[gridData.index.x][gridData.index.y]
         existingNode.nodeView = nodeView
-        matrixDatasArrays[nodeData.index.x][nodeData.index.y] = existingNode
+        gridDatasArrays[gridData.index.x][gridData.index.y] = existingNode
     }
     
     // MARK: - Moves
@@ -131,39 +131,39 @@ final class GridView: UIView {
         for indexesArray in rowsIndexesArray {
             var rowArray = [GridData]()
             for index in indexesArray {
-                rowArray.append(matrixDatasArrays[index.x][index.y])
+                rowArray.append(gridDatasArrays[index.x][index.y])
             }
             rowsArray.append(rowArray)
         }
         
-        var newMatrixDatasArrays = [[GridData]]()
+        var newGridDatasArrays = [[GridData]]()
         rowsArray.forEach {
             let rowNodeViews = $0.filter { $0.nodeView != nil }
             if !rowNodeViews.isEmpty {
                 let intsArray = createArrayOfIntsForSorting(array: $0)
                 let sortedIntsArray = sort(array: intsArray)
-                let sortedMatrixDatasArray = createMatrixDatasArray(initialArray: $0, intsArray: sortedIntsArray)
-                newMatrixDatasArrays.append(sortedMatrixDatasArray)
+                let sortedGridDatasArray = createGridDatasArray(initialArray: $0, intsArray: sortedIntsArray)
+                newGridDatasArrays.append(sortedGridDatasArray)
             } else {
-                newMatrixDatasArrays.append($0)
+                newGridDatasArrays.append($0)
             }
         }
-        matrixDatasArrays = newMatrixDatasArrays
+        gridDatasArrays = newGridDatasArrays
 
         redrawScreen()
     }
     
     private func redrawScreen() {
         removeAllNodeSubviews()
-        drawMatrix()
+        drawGrid()
         
         // TODO: add new nodeView
     }
     
     private func createArrayOfIntsForSorting(array: [GridData]) -> [UInt] {
         var intsArray = [UInt]()
-        for matrixData in array {
-            guard let nodeView = matrixData.nodeView else {
+        for gridData in array {
+            guard let nodeView = gridData.nodeView else {
                 intsArray.append(0)
                 continue
             }
@@ -174,9 +174,9 @@ final class GridView: UIView {
         return intsArray
     }
     
-    private func createMatrixDatasArray(initialArray: [GridData], intsArray: [UInt]) -> [GridData] {
-        var matrixDatasArray = [GridData]()
-        for (index, matrixData) in initialArray.enumerated() {
+    private func createGridDatasArray(initialArray: [GridData], intsArray: [UInt]) -> [GridData] {
+        var gridDatasArray = [GridData]()
+        for (index, gridData) in initialArray.enumerated() {
 //            ;kajsdf;kjasdfjkdfj
 //            if index < intsArray.count {
 //                let nodeView = NodeView(index: matrixData.index,
@@ -194,26 +194,26 @@ final class GridView: UIView {
 //            }
             
             if index < intsArray.count {
-                let nodeView = NodeView(index: matrixData.index,
-                                        frame: matrixData.frame,
+                let nodeView = NodeView(index: gridData.index,
+                                        frame: gridData.frame,
                                         value: intsArray[index])
-                let newMatrixData: GridData = (index: matrixData.index,
-                                                 frame: matrixData.frame,
-                                                 nodeView: nodeView)
-                matrixDatasArray.append(newMatrixData)
+                let newGridData: GridData = (index: gridData.index,
+                                            frame: gridData.frame,
+                                            nodeView: nodeView)
+                gridDatasArray.append(newGridData)
             } else {
-                let newMatrixData: GridData = (index: matrixData.index,
-                                                 frame: matrixData.frame,
-                                                 nodeView: nil)
-                matrixDatasArray.append(newMatrixData)
+                let newGridData: GridData = (index: gridData.index,
+                                            frame: gridData.frame,
+                                            nodeView: nil)
+                gridDatasArray.append(newGridData)
             }
         }
         
-        return matrixDatasArray
+        return gridDatasArray
     }
     
     private func sort(array: [UInt]) -> [UInt] {
-        var sortedMatrixArray = [UInt]()
+        var sortedGridArray = [UInt]()
         var makeBreakAfterMerge = false
         for (currentIndex, currentItem) in array.enumerated() {
             if makeBreakAfterMerge == false {
@@ -223,17 +223,17 @@ final class GridView: UIView {
                     let nextItem = array[nextIndex]
                     if currentItem != 0 {
                         if currentItem != nextItem {
-                            sortedMatrixArray.append(currentItem)
+                            sortedGridArray.append(currentItem)
                         } else if currentItem == nextItem {
                             let newItem = currentItem + nextItem
-                            sortedMatrixArray.append(newItem)
+                            sortedGridArray.append(newItem)
                             makeBreakAfterMerge = true
                             
                             delegate?.addToScore(value: newItem)
                         }
                     }
                 } else if currentIndex == lastIndex, currentItem != 0 {
-                    sortedMatrixArray.append(currentItem)
+                    sortedGridArray.append(currentItem)
                 }
             } else {
                 makeBreakAfterMerge = false
@@ -241,14 +241,13 @@ final class GridView: UIView {
             }
         }
         
-        return sortedMatrixArray
+        return sortedGridArray
     }
     
     // MARK: - Setup
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
-    func setupMatrixView(height: CGFloat) {
-//    private func setupMatrixView() {
+    func setupGridView(height: CGFloat) {
 //        let x1 = UIScreen.main.scale
 //        let x2 = UIScreen.main.nativeScale
 //        let x3 = UIScreen.main.bounds
@@ -263,8 +262,8 @@ final class GridView: UIView {
         let horizontalSide = CGFloat(verticalInset * 6)
         let verticalSide = CGFloat(verticalInset * 6)
         
-        for (rowIndex, row) in matrix.enumerated() {
-            var matrixesArray = [GridData]()
+        for (rowIndex, row) in initialMatrix.enumerated() {
+            var gridArray = [GridData]()
             
             let xInset = (CGFloat(rowIndex) * CGFloat(horizontalSide)) + (verticalInset * CGFloat(rowIndex + 1))
             for node in row {
@@ -279,19 +278,19 @@ final class GridView: UIView {
                 addSubview(nodeSuperview)
                 
                 let index: Index = (x: node.x, y: node.y)
-                let matrixData: GridData = (index: index,
-                                              frame: nodeSuperviewFrame,
-                                              nodeView: nil)
-                matrixesArray.append(matrixData)
+                let gridData: GridData = (index: index,
+                                        frame: nodeSuperviewFrame,
+                                        nodeView: nil)
+                gridArray.append(gridData)
             }
-            matrixDatasArrays.append(matrixesArray)
+            gridDatasArrays.append(gridArray)
         }
     }
     
-    private func drawMatrix() {
-        for matrixDatasArray in matrixDatasArrays {
-            for matrixData in matrixDatasArray {
-                if let nodeView = matrixData.nodeView {
+    private func drawGrid() {
+        for gridDatasArray in gridDatasArrays {
+            for gridData in gridDatasArray {
+                if let nodeView = gridData.nodeView {
                     addSubview(nodeView)
                 }
             }
@@ -301,7 +300,7 @@ final class GridView: UIView {
     // MARK: - Utils
     
     private func emptyFields() -> [GridData] {
-        return matrixDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
+        return gridDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
     }
     
     private func removeAllNodeSubviews() {
