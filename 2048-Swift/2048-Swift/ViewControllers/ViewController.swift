@@ -24,6 +24,7 @@ final class ViewController: UIViewController {
     @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
     
     private var score: UInt = 0
+    private var bestScore: UInt = 0
 
     // MARK: - View Lifecycle
     
