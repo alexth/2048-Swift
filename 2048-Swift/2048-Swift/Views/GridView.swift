@@ -41,22 +41,7 @@ final class GridView: UIView {
     
     func startGame() {
         for _ in 0...1 {
-            do {
-                guard let newNodeValue = [2, 4].randomElement() else {
-                    return
-                }
-                
-                var emptyGridData = try findRandomEmptyGridData()
-                let nodeView = NodeView(index: emptyGridData.index,
-                                        frame: emptyGridData.frame,
-                                        value: UInt(newNodeValue))
-                emptyGridData.nodeView = nodeView
-                addToGrid(gridData: emptyGridData)
-
-                addSubview(nodeView)
-            } catch {
-                delegate?.didThrow(error: error)
-            }
+            putNodeOnAFreeField()
         }
     }
     
@@ -164,8 +149,7 @@ final class GridView: UIView {
     private func redrawScreen() {
         removeAllNodeSubviews()
         drawGrid()
-        
-        // TODO: add new nodeView
+        putNodeOnAFreeField()
     }
     
     private func createArrayOfIntsForSorting(array: [GridData]) -> [UInt] {
@@ -303,6 +287,25 @@ final class GridView: UIView {
     
     private func emptyFields() -> [GridData] {
         return gridDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
+    }
+    
+    private func putNodeOnAFreeField() {
+        do {
+            guard let newNodeValue = [2, 4].randomElement() else {
+                return
+            }
+            
+            var emptyGridData = try findRandomEmptyGridData()
+            let nodeView = NodeView(index: emptyGridData.index,
+                                    frame: emptyGridData.frame,
+                                    value: UInt(newNodeValue))
+            emptyGridData.nodeView = nodeView
+            addToGrid(gridData: emptyGridData)
+
+            addSubview(nodeView)
+        } catch {
+            delegate?.didThrow(error: error)
+        }
     }
     
     private func removeAllNodeSubviews() {
