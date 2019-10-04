@@ -119,11 +119,23 @@ final class GridView: UIView {
     }
     
     private func upMove() {
-        // TODO:
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(0, 0), (0, 1), (0, 2), (0, 3)]
+        let secondIndexesRow: [Index] = [(1, 0), (1, 1), (1, 2), (1, 3)]
+        let thirdIndexesRow: [Index] = [(2, 0), (2, 1), (2, 2), (2, 3)]
+        let fourthIndexesRow: [Index] = [(3, 0), (3, 1), (3, 2), (3, 3)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func downMove() {
-        // TODO:
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(0, 3), (0, 2), (0, 1), (0, 0)]
+        let secondIndexesRow: [Index] = [(1, 3), (1, 2), (1, 1), (1, 0)]
+        let thirdIndexesRow: [Index] = [(2, 3), (2, 2), (2, 1), (2, 0)]
+        let fourthIndexesRow: [Index] = [(3, 3), (3, 2), (3, 1), (3, 0)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func handleMove(rowsIndexesArray: [[Index]]) {
