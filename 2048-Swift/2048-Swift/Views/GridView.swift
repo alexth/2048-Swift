@@ -136,19 +136,15 @@ final class GridView: UIView {
             rowsArray.append(rowArray)
         }
         
-        var newGridDatasArrays = [[GridData]]()
         rowsArray.forEach {
             let rowNodeViews = $0.filter { $0.nodeView != nil }
             if !rowNodeViews.isEmpty {
                 let intsArray = createArrayOfIntsForSorting(array: $0)
                 let sortedIntsArray = sort(array: intsArray)
                 let sortedGridDatasArray = createGridDatasArray(initialArray: $0, intsArray: sortedIntsArray)
-                newGridDatasArrays.append(sortedGridDatasArray)
-            } else {
-                newGridDatasArrays.append($0)
+                setSortedGridDatasArray(sortedArray: sortedGridDatasArray)
             }
         }
-        gridDatasArrays = newGridDatasArrays
 
         redrawScreen()
     }
@@ -177,22 +173,6 @@ final class GridView: UIView {
     private func createGridDatasArray(initialArray: [GridData], intsArray: [UInt]) -> [GridData] {
         var gridDatasArray = [GridData]()
         for (index, gridData) in initialArray.enumerated() {
-//            ;kajsdf;kjasdfjkdfj
-//            if index < intsArray.count {
-//                let nodeView = NodeView(index: matrixData.index,
-//                                        frame: matrixData.frame,
-//                                        value: intsArray[index])
-//                let newMatrixData: MatrixData = (index: matrixData.index,
-//                                                 frame: matrixData.frame,
-//                                                 nodeView: nodeView)
-//                matrixDatasArray.append(newMatrixData)
-//            } else {
-//                let newMatrixData: MatrixData = (index: matrixData.index,
-//                                                 frame: matrixData.frame,
-//                                                 nodeView: nil)
-//                matrixDatasArray.append(newMatrixData)
-//            }
-            
             if index < intsArray.count {
                 let nodeView = NodeView(index: gridData.index,
                                         frame: gridData.frame,
@@ -210,6 +190,16 @@ final class GridView: UIView {
         }
         
         return gridDatasArray
+    }
+    
+    private func setSortedGridDatasArray(sortedArray: [GridData]) {
+        for gridData in sortedArray {
+            if let nodeView = gridData.nodeView {
+                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nodeView
+            } else {
+                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nil
+            }
+        }
     }
     
     private func sort(array: [UInt]) -> [UInt] {
