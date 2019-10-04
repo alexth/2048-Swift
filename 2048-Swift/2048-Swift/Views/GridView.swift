@@ -41,22 +41,7 @@ final class GridView: UIView {
     
     func startGame() {
         for _ in 0...1 {
-            do {
-                guard let newNodeValue = [2, 4].randomElement() else {
-                    return
-                }
-                
-                var emptyGridData = try findRandomEmptyGridData()
-                let nodeView = NodeView(index: emptyGridData.index,
-                                        frame: emptyGridData.frame,
-                                        value: UInt(newNodeValue))
-                emptyGridData.nodeView = nodeView
-                addToGrid(gridData: emptyGridData)
-
-                addSubview(nodeView)
-            } catch {
-                delegate?.didThrow(error: error)
-            }
+            putNodeOnAFreeField()
         }
     }
     
@@ -119,11 +104,23 @@ final class GridView: UIView {
     }
     
     private func upMove() {
-        // TODO:
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(0, 0), (0, 1), (0, 2), (0, 3)]
+        let secondIndexesRow: [Index] = [(1, 0), (1, 1), (1, 2), (1, 3)]
+        let thirdIndexesRow: [Index] = [(2, 0), (2, 1), (2, 2), (2, 3)]
+        let fourthIndexesRow: [Index] = [(3, 0), (3, 1), (3, 2), (3, 3)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func downMove() {
-        // TODO:
+        // FIXME: - hardcoded for four rows
+        let firstIndexesRow: [Index] = [(0, 3), (0, 2), (0, 1), (0, 0)]
+        let secondIndexesRow: [Index] = [(1, 3), (1, 2), (1, 1), (1, 0)]
+        let thirdIndexesRow: [Index] = [(2, 3), (2, 2), (2, 1), (2, 0)]
+        let fourthIndexesRow: [Index] = [(3, 3), (3, 2), (3, 1), (3, 0)]
+        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
     private func handleMove(rowsIndexesArray: [[Index]]) {
@@ -136,19 +133,15 @@ final class GridView: UIView {
             rowsArray.append(rowArray)
         }
         
-        var newGridDatasArrays = [[GridData]]()
         rowsArray.forEach {
             let rowNodeViews = $0.filter { $0.nodeView != nil }
             if !rowNodeViews.isEmpty {
                 let intsArray = createArrayOfIntsForSorting(array: $0)
                 let sortedIntsArray = sort(array: intsArray)
                 let sortedGridDatasArray = createGridDatasArray(initialArray: $0, intsArray: sortedIntsArray)
-                newGridDatasArrays.append(sortedGridDatasArray)
-            } else {
-                newGridDatasArrays.append($0)
+                setSortedGridDatasArray(sortedArray: sortedGridDatasArray)
             }
         }
-        gridDatasArrays = newGridDatasArrays
 
         redrawScreen()
     }
@@ -156,8 +149,7 @@ final class GridView: UIView {
     private func redrawScreen() {
         removeAllNodeSubviews()
         drawGrid()
-        
-        // TODO: add new nodeView
+        putNodeOnAFreeField()
     }
     
     private func createArrayOfIntsForSorting(array: [GridData]) -> [UInt] {
@@ -177,22 +169,6 @@ final class GridView: UIView {
     private func createGridDatasArray(initialArray: [GridData], intsArray: [UInt]) -> [GridData] {
         var gridDatasArray = [GridData]()
         for (index, gridData) in initialArray.enumerated() {
-//            ;kajsdf;kjasdfjkdfj
-//            if index < intsArray.count {
-//                let nodeView = NodeView(index: matrixData.index,
-//                                        frame: matrixData.frame,
-//                                        value: intsArray[index])
-//                let newMatrixData: MatrixData = (index: matrixData.index,
-//                                                 frame: matrixData.frame,
-//                                                 nodeView: nodeView)
-//                matrixDatasArray.append(newMatrixData)
-//            } else {
-//                let newMatrixData: MatrixData = (index: matrixData.index,
-//                                                 frame: matrixData.frame,
-//                                                 nodeView: nil)
-//                matrixDatasArray.append(newMatrixData)
-//            }
-            
             if index < intsArray.count {
                 let nodeView = NodeView(index: gridData.index,
                                         frame: gridData.frame,
@@ -210,6 +186,16 @@ final class GridView: UIView {
         }
         
         return gridDatasArray
+    }
+    
+    private func setSortedGridDatasArray(sortedArray: [GridData]) {
+        for gridData in sortedArray {
+            if let nodeView = gridData.nodeView {
+                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nodeView
+            } else {
+                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nil
+            }
+        }
     }
     
     private func sort(array: [UInt]) -> [UInt] {
@@ -301,6 +287,25 @@ final class GridView: UIView {
     
     private func emptyFields() -> [GridData] {
         return gridDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
+    }
+    
+    private func putNodeOnAFreeField() {
+        do {
+            guard let newNodeValue = [2, 4].randomElement() else {
+                return
+            }
+            
+            var emptyGridData = try findRandomEmptyGridData()
+            let nodeView = NodeView(index: emptyGridData.index,
+                                    frame: emptyGridData.frame,
+                                    value: UInt(newNodeValue))
+            emptyGridData.nodeView = nodeView
+            addToGrid(gridData: emptyGridData)
+
+            addSubview(nodeView)
+        } catch {
+            delegate?.didThrow(error: error)
+        }
     }
     
     private func removeAllNodeSubviews() {
