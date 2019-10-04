@@ -27,8 +27,8 @@ final class NodeView: UIView {
     
     private func setupUI() {
         roundCorners()
-        backgroundColor = .white // TODO: depend on value
         
+        backgroundColor = UIColor(named: "\(value)")
         let label = UILabel(frame: bounds)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
