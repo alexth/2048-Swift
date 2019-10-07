@@ -11,6 +11,11 @@ import UIKit
 public typealias Index = (x: Int, y: Int)
 internal typealias GridData = (index: Index, frame: CGRect, nodeView: NodeView?)
 
+enum NodeViewAnimationType {
+    case move(from: CGRect)
+    case merge
+}
+
 protocol GridViewDelegate: class {
     func addToScore(value: UInt)
     func didThrow(error: Error)

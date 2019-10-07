@@ -56,6 +56,10 @@ final class NodeView: UIView {
         }
     }
     
+    func animateMove(from startRect: CGRect, to finishRect: CGRect) {
+        // TODO:
+    }
+    
     func animateMerge() {
         UIView.animate(withDuration: animationDuration,
                        animations: {
