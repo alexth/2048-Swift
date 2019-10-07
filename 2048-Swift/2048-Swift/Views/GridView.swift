@@ -25,7 +25,7 @@ protocol GridViewDelegate: class {
 
 final class GridView: UIView {
 
-    let initialMatrix: [[Index]] // TODO: remove if possible
+    let initialMatrix: [[Index]] 
     var gridDatasArrays = [[GridData]]()
     
     weak var delegate: GridViewDelegate?
@@ -50,6 +50,18 @@ final class GridView: UIView {
         for _ in 0...1 {
             putNodeOnAFreeField()
         }
+    }
+    
+    func removeAllNodeSubviews() {
+        var viewsToRemove = [UIView]()
+        subviews.forEach {
+            if let nodeView = $0 as? NodeView {
+                nodeView.removeFromSuperview()
+                viewsToRemove.append(nodeView)
+            }
+        }
+        
+        viewsToRemove.removeAll()
     }
     
     private func findRandomEmptyGridData() throws -> GridData {
@@ -322,17 +334,5 @@ final class GridView: UIView {
         } catch {
             delegate?.didThrow(error: error)
         }
-    }
-    
-    private func removeAllNodeSubviews() {
-        var viewsToRemove = [UIView]()
-        subviews.forEach {
-            if let nodeView = $0 as? NodeView {
-                nodeView.removeFromSuperview()
-                viewsToRemove.append(nodeView)
-            }
-        }
-        
-        viewsToRemove.removeAll()
     }
 }

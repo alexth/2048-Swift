@@ -20,39 +20,46 @@ final class ViewController: UIViewController {
     @IBOutlet weak var bestView: UIView!
     @IBOutlet weak var bestLabel: UILabel!
     @IBOutlet weak var bestValueLabel: UILabel!
-    @IBOutlet weak var matrixView: GridView!
+    @IBOutlet weak var gridView: GridView!
     @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
     
-    private var score: UInt = 0
+    private lazy var score: UInt = 0
     private lazy var bestScore: UInt = {
         return UserDefaultsManager.fetchBest
     }()
-
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        matrixView.delegate = self
+        gridView.delegate = self
         fetchAndDisplayBestScore()
         setupGestures()
         roundViewsCorners()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        matrixView.setupGridView(height: matrixViewHeight.constant)
+        gridView.setupGridView(height: matrixViewHeight.constant)
         super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        matrixView.startGame()
+        gridView.startGame()
         super.viewDidAppear(animated)
     }
     
     // MARK: - Actions
     
     @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        matrixView.didPerform(move: gestureRecognizer.direction)
+        gridView.didPerform(move: gestureRecognizer.direction)
+    }
+    
+    private func startNewGame() {
+        score = 0
+        scoreValueLabel.text = "\(score)"
+        gridView.removeAllNodeSubviews()
+        gridView.startGame()
     }
     
     // MARK: - Setup
@@ -100,7 +107,16 @@ extension ViewController: GridViewDelegate {
     }
     
     func didThrow(error: Error) {
-        // TODO:
-        print(error)
+        let alert = UIAlertController(title: "Error",
+                                      message: error.localizedDescription,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "New Game",
+                                     style: .default,
+                                     handler: { _ in
+                                        self.startNewGame()
+        })
+        
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
