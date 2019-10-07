@@ -325,10 +325,14 @@ final class GridView: UIView {
     }
     
     private func removeAllNodeSubviews() {
+        var viewsToRemove = [UIView]()
         subviews.forEach {
             if let nodeView = $0 as? NodeView {
                 nodeView.removeFromSuperview()
+                viewsToRemove.append(nodeView)
             }
         }
+        
+        viewsToRemove.removeAll()
     }
 }
