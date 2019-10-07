@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E56DDDA6234BDBCB0073AD4E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */; };
 		E586F5B7233D448700C1B323 /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5B6233D448700C1B323 /* NodeView.swift */; };
 		E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */; };
 		E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D40478233BF0A300571366 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		E586F5B6233D448700C1B323 /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorners.swift"; sourceTree = "<group>"; };
 		E5D40475233BF0A300571366 /* 2048-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2048-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E56DDDA4234BD9940073AD4E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E586F5B8233D4B1A00C1B323 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 				E586F5BA233D4B4D00C1B323 /* Extensions */,
 				E586F5B9233D4B3A00C1B323 /* ViewControllers */,
 				E586F5B8233D4B1A00C1B323 /* Views */,
+				E56DDDA4234BD9940073AD4E /* Utils */,
 				E5D4047C233BF0A300571366 /* Main.storyboard */,
 				E5D4047F233BF0A400571366 /* Assets.xcassets */,
 				E5D40481233BF0A400571366 /* LaunchScreen.storyboard */,
@@ -291,6 +302,7 @@
 			files = (
 				E5D4047B233BF0A300571366 /* ViewController.swift in Sources */,
 				E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */,
+				E56DDDA6234BDBCB0073AD4E /* UserDefaultsManager.swift in Sources */,
 				E586F5B7233D448700C1B323 /* NodeView.swift in Sources */,
 				E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */,
 				E5D404A7233BF93A00571366 /* GridView.swift in Sources */,

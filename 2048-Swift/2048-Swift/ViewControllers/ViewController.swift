@@ -24,7 +24,9 @@ final class ViewController: UIViewController {
     @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
     
     private var score: UInt = 0
-    private var bestScore: UInt = 0
+    private lazy var bestScore: UInt = {
+        return UserDefaultsManager.fetchBest
+    }()
 
     // MARK: - View Lifecycle
     
@@ -32,6 +34,7 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         matrixView.delegate = self
+        fetchAndDisplayBestScore()
         setupGestures()
         roundViewsCorners()
     }
@@ -48,7 +51,15 @@ final class ViewController: UIViewController {
     
     // MARK: - Actions
     
+    @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        matrixView.didPerform(move: gestureRecognizer.direction)
+    }
+    
     // MARK: - Setup
+    
+    private func fetchAndDisplayBestScore() {
+        bestValueLabel.text = "\(bestScore)"
+    }
     
     private func setupGestures() {
         let leftRecognizer = UISwipeGestureRecognizer(target: self, action:
@@ -70,10 +81,6 @@ final class ViewController: UIViewController {
         view.addGestureRecognizer(downRecognizer)
     }
     
-    @objc private func swipeMade(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        matrixView.didPerform(move: gestureRecognizer.direction)
-    }
-    
     // MARK: - Utils
     
     private func roundViewsCorners() {
@@ -86,6 +93,10 @@ extension ViewController: GridViewDelegate {
     func addToScore(value: UInt) {
         score += value
         scoreValueLabel.text = "\(score)"
+        if score > bestScore {
+            bestValueLabel.text = "\(score)"
+            UserDefaultsManager.store(best: score)
+        }
     }
     
     func didThrow(error: Error) {
