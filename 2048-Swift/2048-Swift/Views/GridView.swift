@@ -163,7 +163,6 @@ final class GridView: UIView {
         var intsArray = [UInt]()
         for gridData in array {
             guard let nodeView = gridData.nodeView else {
-                intsArray.append(0)
                 continue
             }
             
@@ -216,6 +215,7 @@ final class GridView: UIView {
     private func sort(array: [UInt]) -> [MoveData] {
         var sortedGridArray = [MoveData]()
         var makeBreakAfterMerge = false
+        
         for (currentIndex, currentItem) in array.enumerated() {
             if makeBreakAfterMerge == false {
                 let lastIndex = array.count - 1
