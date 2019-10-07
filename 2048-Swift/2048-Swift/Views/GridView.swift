@@ -303,6 +303,7 @@ final class GridView: UIView {
             addToGrid(gridData: emptyGridData)
 
             addSubview(nodeView)
+            nodeView.animateAppearance()
         } catch {
             delegate?.didThrow(error: error)
         }

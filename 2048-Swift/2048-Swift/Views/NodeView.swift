@@ -49,14 +49,14 @@ final class NodeView: UIView {
         addSubview(label)
     }
     
-    private func animateAppearance() {
+    func animateAppearance() {
         transform = CGAffineTransform.identity.scaledBy(x: 0.5, y: 0.5)
         UIView.animate(withDuration: animationDuration) {
             self.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
         }
     }
     
-    private func animateMerge() {
+    func animateMerge() {
         UIView.animate(withDuration: animationDuration,
                        animations: {
                         self.transform = CGAffineTransform.identity.scaledBy(x: 1.1, y: 1.1)
@@ -67,7 +67,7 @@ final class NodeView: UIView {
         }
     }
     
-    private func animateDisappearance() {
+    func animateDisappearance() {
         UIView.animate(withDuration: 0.2) {
             self.alpha = 0.0
         }
