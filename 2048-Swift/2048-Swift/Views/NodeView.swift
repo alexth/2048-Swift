@@ -66,10 +66,4 @@ final class NodeView: UIView {
             }
         }
     }
-    
-    func animateDisappearance() {
-        UIView.animate(withDuration: 0.2) {
-            self.alpha = 0.0
-        }
-    }
 }

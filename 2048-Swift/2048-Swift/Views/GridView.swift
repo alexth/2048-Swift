@@ -10,6 +10,13 @@ import UIKit
 
 public typealias Index = (x: Int, y: Int)
 internal typealias GridData = (index: Index, frame: CGRect, nodeView: NodeView?)
+internal typealias MoveData = (value: UInt, animationType: NodeViewAnimationType?)
+internal typealias AnimatedGridData = (gridData: GridData, animationType: NodeViewAnimationType?)
+
+enum NodeViewAnimationType {
+    case move(from: CGRect)
+    case merge
+}
 
 protocol GridViewDelegate: class {
     func addToScore(value: UInt)
@@ -156,7 +163,6 @@ final class GridView: UIView {
         var intsArray = [UInt]()
         for gridData in array {
             guard let nodeView = gridData.nodeView else {
-                intsArray.append(0)
                 continue
             }
             
@@ -166,41 +172,50 @@ final class GridView: UIView {
         return intsArray
     }
     
-    private func createGridDatasArray(initialArray: [GridData], intsArray: [UInt]) -> [GridData] {
-        var gridDatasArray = [GridData]()
+    private func createGridDatasArray(initialArray: [GridData], intsArray: [MoveData]) -> [AnimatedGridData] {
+        var gridDatasArray = [AnimatedGridData]()
         for (index, gridData) in initialArray.enumerated() {
             if index < intsArray.count {
                 let nodeView = NodeView(index: gridData.index,
                                         frame: gridData.frame,
-                                        value: intsArray[index])
+                                        value: intsArray[index].value)
                 let newGridData: GridData = (index: gridData.index,
                                             frame: gridData.frame,
                                             nodeView: nodeView)
-                gridDatasArray.append(newGridData)
+                gridDatasArray.append((newGridData, intsArray[index].animationType))
             } else {
                 let newGridData: GridData = (index: gridData.index,
                                             frame: gridData.frame,
                                             nodeView: nil)
-                gridDatasArray.append(newGridData)
+                gridDatasArray.append((newGridData, nil))
             }
         }
         
         return gridDatasArray
     }
     
-    private func setSortedGridDatasArray(sortedArray: [GridData]) {
-        for gridData in sortedArray {
-            if let nodeView = gridData.nodeView {
-                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nodeView
+    private func setSortedGridDatasArray(sortedArray: [AnimatedGridData]) {
+        for animatedGridData in sortedArray {
+            if let nodeView = animatedGridData.gridData.nodeView {
+                gridDatasArrays[animatedGridData.gridData.index.x][animatedGridData.gridData.index.y].nodeView = nodeView
+                if let animationType = animatedGridData.animationType {
+                    switch animationType {
+                    case .merge:
+                        nodeView.animateMerge()
+                    default:
+                        print(animationType)
+                    }
+                }
             } else {
-                gridDatasArrays[gridData.index.x][gridData.index.y].nodeView = nil
+                gridDatasArrays[animatedGridData.gridData.index.x][animatedGridData.gridData.index.y].nodeView = nil
             }
         }
     }
     
-    private func sort(array: [UInt]) -> [UInt] {
-        var sortedGridArray = [UInt]()
+    private func sort(array: [UInt]) -> [MoveData] {
+        var sortedGridArray = [MoveData]()
         var makeBreakAfterMerge = false
+        
         for (currentIndex, currentItem) in array.enumerated() {
             if makeBreakAfterMerge == false {
                 let lastIndex = array.count - 1
@@ -209,17 +224,17 @@ final class GridView: UIView {
                     let nextItem = array[nextIndex]
                     if currentItem != 0 {
                         if currentItem != nextItem {
-                            sortedGridArray.append(currentItem)
+                            sortedGridArray.append((currentItem, nil))
                         } else if currentItem == nextItem {
                             let newItem = currentItem + nextItem
-                            sortedGridArray.append(newItem)
+                            sortedGridArray.append((newItem, .merge))
                             makeBreakAfterMerge = true
                             
                             delegate?.addToScore(value: newItem)
                         }
                     }
                 } else if currentIndex == lastIndex, currentItem != 0 {
-                    sortedGridArray.append(currentItem)
+                    sortedGridArray.append((currentItem, nil))
                 }
             } else {
                 makeBreakAfterMerge = false
@@ -310,10 +325,14 @@ final class GridView: UIView {
     }
     
     private func removeAllNodeSubviews() {
+        var viewsToRemove = [UIView]()
         subviews.forEach {
             if let nodeView = $0 as? NodeView {
                 nodeView.removeFromSuperview()
+                viewsToRemove.append(nodeView)
             }
         }
+        
+        viewsToRemove.removeAll()
     }
 }
