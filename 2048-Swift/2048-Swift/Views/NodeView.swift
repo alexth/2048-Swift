@@ -56,10 +56,6 @@ final class NodeView: UIView {
         }
     }
     
-    func animateMove(from startRect: CGRect, to finishRect: CGRect) {
-        // TODO:
-    }
-    
     func animateMerge() {
         UIView.animate(withDuration: animationDuration,
                        animations: {
@@ -68,12 +64,6 @@ final class NodeView: UIView {
             UIView.animate(withDuration: self.animationDuration) {
                 self.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
             }
-        }
-    }
-    
-    func animateDisappearance() {
-        UIView.animate(withDuration: 0.2) {
-            self.alpha = 0.0
         }
     }
 }
