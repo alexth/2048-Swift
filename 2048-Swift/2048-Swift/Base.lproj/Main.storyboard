@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,11 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYt-hI-kfT" customClass="GridView" customModule="_048_Swift" customModuleProvider="target">
-                                <rect key="frame" x="20" y="258" width="374" height="280"/>
+                                <rect key="frame" x="20" y="211" width="374" height="374"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="jYt-hI-kfT" secondAttribute="height" multiplier="1:1" id="66s-av-RPw"/>
-                                    <constraint firstAttribute="height" constant="280" id="akv-JW-WZZ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HmF-BR-Pav">
@@ -110,7 +109,6 @@
                         <outlet property="bestValueLabel" destination="SVv-ti-Has" id="NZ8-rO-gDh"/>
                         <outlet property="bestView" destination="ZrA-FM-lxw" id="bNE-ce-h9A"/>
                         <outlet property="gridView" destination="jYt-hI-kfT" id="egE-5v-CAe"/>
-                        <outlet property="matrixViewHeight" destination="akv-JW-WZZ" id="f0F-bF-ouR"/>
                         <outlet property="scoreLabel" destination="Cvm-t5-Uuu" id="dMe-Ak-bgg"/>
                         <outlet property="scoreValueLabel" destination="O8X-ui-0fV" id="dM3-qC-twf"/>
                         <outlet property="scoreView" destination="HmF-BR-Pav" id="qjy-Lc-ztp"/>

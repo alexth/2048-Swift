@@ -21,7 +21,6 @@ final class ViewController: UIViewController {
     @IBOutlet weak var bestLabel: UILabel!
     @IBOutlet weak var bestValueLabel: UILabel!
     @IBOutlet weak var gridView: GridView!
-    @IBOutlet weak var matrixViewHeight: NSLayoutConstraint!
     
     private lazy var score: UInt = 0
     private lazy var bestScore: UInt = {
