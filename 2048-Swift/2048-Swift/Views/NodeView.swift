@@ -41,10 +41,12 @@ final class NodeView: UIView {
         let label = UILabel(frame: bounds)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.font = UIFont.boldSystemFont(ofSize: 34)
         label.text = "\(value)"
         if value > 4 {
-            label.textColor = .white
+            label.textColor = UIColor(named: "brightTextColor")
+        } else {
+            label.textColor = UIColor(named: "textColor")
         }
         addSubview(label)
     }

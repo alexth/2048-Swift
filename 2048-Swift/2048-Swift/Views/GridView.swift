@@ -226,7 +226,7 @@ final class GridView: UIView {
                                                 width: horizontalSide,
                                                 height: verticalSide)
                 let nodeSuperview = UIView(frame: nodeSuperviewFrame)
-                nodeSuperview.backgroundColor = .lightGray
+                nodeSuperview.backgroundColor = UIColor.init(named: "gameContainerBackground")
                 nodeSuperview.roundCorners()
                 addSubview(nodeSuperview)
                 
