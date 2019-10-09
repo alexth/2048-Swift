@@ -39,12 +39,8 @@ final class ViewController: UIViewController {
         roundViewsCorners()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        gridView.setupGridView(height: matrixViewHeight.constant)
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
+        gridView.setupGridView(height: gridView.frame.width)
         gridView.startGame()
         super.viewDidAppear(animated)
     }
