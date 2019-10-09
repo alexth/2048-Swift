@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E52FBEFC234E7967005C08B2 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52FBEFB234E7967005C08B2 /* Calculator.swift */; };
 		E56DDDA6234BDBCB0073AD4E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */; };
 		E586F5B7233D448700C1B323 /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5B6233D448700C1B323 /* NodeView.swift */; };
 		E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E52FBEFB234E7967005C08B2 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		E586F5B6233D448700C1B323 /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		E586F5BB233D4B6300C1B323 /* View+RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorners.swift"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		E56DDDA4234BD9940073AD4E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E52FBEFB234E7967005C08B2 /* Calculator.swift */,
 				E56DDDA5234BDBCB0073AD4E /* UserDefaultsManager.swift */,
 			);
 			path = Utils;
@@ -302,6 +305,7 @@
 			files = (
 				E5D4047B233BF0A300571366 /* ViewController.swift in Sources */,
 				E5D40479233BF0A300571366 /* AppDelegate.swift in Sources */,
+				E52FBEFC234E7967005C08B2 /* Calculator.swift in Sources */,
 				E56DDDA6234BDBCB0073AD4E /* UserDefaultsManager.swift in Sources */,
 				E586F5B7233D448700C1B323 /* NodeView.swift in Sources */,
 				E586F5BC233D4B6300C1B323 /* View+RoundedCorners.swift in Sources */,
