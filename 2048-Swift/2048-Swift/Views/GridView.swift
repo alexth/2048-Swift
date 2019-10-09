@@ -25,8 +25,8 @@ protocol GridViewDelegate: class {
 
 final class GridView: UIView {
 
-    let initialMatrix: [[Index]] 
     var gridDatasArrays = [[GridData]]()
+    private let initialMatrix: [[Index]]
     
     weak var delegate: GridViewDelegate?
     
@@ -261,15 +261,6 @@ final class GridView: UIView {
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
     func setupGridView(height: CGFloat) {
-//        let x1 = UIScreen.main.scale
-//        let x2 = UIScreen.main.nativeScale
-//        let x3 = UIScreen.main.bounds
-//        let x4 = UIScreen.main.nativeBounds
-//        let framex = frame
-//        let boundsx = bounds
-        // TODO:
-//        let verticalInset = CGFloat(bounds.height / 29)
-//        let horizontalInset = CGFloat(bounds.width / 29)
         let verticalInset = CGFloat(height / 29)
         let horizontalInset = CGFloat(height / 29)
         let horizontalSide = CGFloat(verticalInset * 6)
