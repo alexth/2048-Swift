@@ -39,7 +39,7 @@ final class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        gridView.setupGridView(height: gridView.frame.width)
+        gridView.setupGridView(height: gridView.frame.width, gridCount: 4)
         gridView.startGame()
         super.viewDidAppear(animated)
     }

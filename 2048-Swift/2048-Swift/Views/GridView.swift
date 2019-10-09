@@ -26,20 +26,9 @@ protocol GridViewDelegate: class {
 final class GridView: UIView {
 
     var gridDatasArrays = [[GridData]]()
-    private let initialMatrix: [[Index]]
-    
     weak var delegate: GridViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
-        var verticalRow = [[Index]]()
-        for verticalIndex in 0...3 {
-            var verticalArray = [Index]()
-            for horizontalIndex in 0...3 {
-                verticalArray.append((verticalIndex, horizontalIndex))
-            }
-            verticalRow.append(verticalArray)
-        }
-        self.initialMatrix = verticalRow
         super.init(coder: aDecoder)
         roundCorners()
     }
@@ -209,9 +198,19 @@ final class GridView: UIView {
     // MARK: - Setup
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
-    func setupGridView(height: CGFloat) {
-        let verticalInset = CGFloat(height / 29)
-        let horizontalInset = CGFloat(height / 29)
+    func setupGridView(height: CGFloat, gridCount: Int) {
+        var initialMatrix = [[Index]]()
+        for verticalIndex in 0..<gridCount {
+            var verticalArray = [Index]()
+            for horizontalIndex in 0..<gridCount {
+                verticalArray.append((verticalIndex, horizontalIndex))
+            }
+            initialMatrix.append(verticalArray)
+        }
+        
+        let unitsCount = (gridCount * 6) + (gridCount + 1)
+        let verticalInset = CGFloat(height / CGFloat(unitsCount))
+        let horizontalInset = CGFloat(height / CGFloat(unitsCount))
         let horizontalSide = CGFloat(verticalInset * 6)
         let verticalSide = CGFloat(verticalInset * 6)
         
