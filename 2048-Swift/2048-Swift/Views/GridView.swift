@@ -104,6 +104,7 @@ final class GridView: UIView {
     
     private func leftMove() {
         // example for four rows
+        // (x, y)
         // [(0, 0), (1, 0), (2, 0), (3, 0)]
         // [(0, 1), (1, 1), (2, 1), (3, 1)]
         // [(0, 2), (1, 2), (2, 2), (3, 2)]
@@ -115,7 +116,6 @@ final class GridView: UIView {
             for nestedIndex in 0..<count {
                 indexesRowArray.append((nestedIndex, index))
             }
-            
             rowsIndexesArray.append(indexesRowArray)
         }
         
@@ -123,12 +123,25 @@ final class GridView: UIView {
     }
     
     private func rightMove() {
-        // FIXME: - hardcoded for four rows
-        let firstIndexesRow: [Index] = [(3, 0), (2, 0), (1, 0), (0, 0)]
-        let secondIndexesRow: [Index] = [(3, 1), (2, 1), (1, 1), (0, 1)]
-        let thirdIndexesRow: [Index] = [(3, 2), (2, 2), (1, 2), (0, 2)]
-        let fourthIndexesRow: [Index] = [(3, 3), (2, 3), (1, 3), (0, 3)]
-        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        // example for four rows
+        // (x, y)
+        // [(3, 0), (2, 0), (1, 0), (0, 0)]
+        // [(3, 1), (2, 1), (1, 1), (0, 1)]
+        // [(3, 2), (2, 2), (1, 2), (0, 2)]
+        // [(3, 3), (2, 3), (1, 3), (0, 3)]
+        let count = gridDatasArrays.count
+        let maxIndex = count - 1
+        var rowsIndexesArray = [[Index]]()
+        for index in 0..<count {
+            var indexesRowArray = [Index]()
+            for nestedIndex in 0..<count {
+                let xIndex = maxIndex - nestedIndex
+                indexesRowArray.append((xIndex, index))
+            }
+            
+            rowsIndexesArray.append(indexesRowArray)
+        }
+        
         handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
