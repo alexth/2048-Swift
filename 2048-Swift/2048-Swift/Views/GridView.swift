@@ -103,12 +103,22 @@ final class GridView: UIView {
     }
     
     private func leftMove() {
-        // FIXME: - hardcoded for four rows
-        let firstIndexesRow: [Index] = [(0, 0), (1, 0), (2, 0), (3, 0)]
-        let secondIndexesRow: [Index] = [(0, 1), (1, 1), (2, 1), (3, 1)]
-        let thirdIndexesRow: [Index] = [(0, 2), (1, 2), (2, 2), (3, 2)]
-        let fourthIndexesRow: [Index] = [(0, 3), (1, 3), (2, 3), (3, 3)]
-        let rowsIndexesArray = [firstIndexesRow, secondIndexesRow, thirdIndexesRow, fourthIndexesRow]
+        // example for four rows
+        // [(0, 0), (1, 0), (2, 0), (3, 0)]
+        // [(0, 1), (1, 1), (2, 1), (3, 1)]
+        // [(0, 2), (1, 2), (2, 2), (3, 2)]
+        // [(0, 3), (1, 3), (2, 3), (3, 3)]
+        let count = gridDatasArrays.count
+        var rowsIndexesArray = [[Index]]()
+        for index in 0..<count {
+            var indexesRowArray = [Index]()
+            for nestedIndex in 0..<count {
+                indexesRowArray.append((nestedIndex, index))
+            }
+            
+            rowsIndexesArray.append(indexesRowArray)
+        }
+        
         handleMove(rowsIndexesArray: rowsIndexesArray)
     }
     
