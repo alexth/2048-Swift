@@ -27,6 +27,8 @@ final class GridView: UIView {
 
     var gridDatasArrays = [[GridData]]()
     weak var delegate: GridViewDelegate?
+    private var height: CGFloat = 0.0
+    private var gridCount: Int = 0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -36,6 +38,9 @@ final class GridView: UIView {
     // MARK: - Actions
     
     func startGame() {
+        cleanupGridDatasArray()
+        removeAllNodeSubviews()
+        setupGridView(height: height, gridCount: gridCount)
         for _ in 0...1 {
             putNodeOnAFreeField()
         }
@@ -199,6 +204,9 @@ final class GridView: UIView {
     
     // TODO: make 4x4, 6x6, 8x8 etc by adjusting
     func setupGridView(height: CGFloat, gridCount: Int) {
+        self.height = height
+        self.gridCount = gridCount
+        
         var initialMatrix = [[Index]]()
         for verticalIndex in 0..<gridCount {
             var verticalArray = [Index]()
@@ -253,6 +261,10 @@ final class GridView: UIView {
     
     private func emptyFields() -> [GridData] {
         return gridDatasArrays.flatMap { $0 }.filter { $0.nodeView == nil }
+    }
+    
+    private func cleanupGridDatasArray() {
+        gridDatasArrays = [[GridData]]()
     }
     
     private func putNodeOnAFreeField() {
